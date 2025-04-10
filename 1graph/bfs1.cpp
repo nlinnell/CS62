@@ -2,9 +2,7 @@
 #include <vector>
 #include <set>
 #include <queue>
-
-
-
+#include <cassert>
 
 
 class Graph {
@@ -16,39 +14,63 @@ public:
   // pre: none
   // post: returns the number of vertices in this Graph
   int n() const {
-
+    return adjLists_.size();
   }
 
   // pre: none
   // post: returns the number of edges in this Graph
   int m() const {
-
+    int totalEdges = 0;
+    for(auto alist:adjLists_){
+      totalEdges+=alist.size();
+    }
+    return totalEdges/2;
   }
 
   // pre: none
   // post: a new vertex with label n() has been added to this Graph
   void addVertex() {
-
+    adjLists_.push_back(std::set<int>());
   }
 
   // pre: i < n() && j < n()
   // post: edge {i, j} has been added to this Graph
   //       if it is not an edge already
   void addEdge(int i, int j) {
-
+    assert(i<n()&&j<n());
+    adjLists_[i].insert(j);
+    adjLists_[j].insert(i);
   }
 
   // pre: i < n() && j < n()
   // post: edge {i, j} is not in this Graph
   void deleteEdge(int i, int j) {
-
+    assert(i<n()&&j<n());
+    adjLists_[i].erase(j);
+    adjLists_[j].erase(i);
   }
 
 
-  // what does this print out?
+ 
   void BFS(int source) {
-
-
+    std::queue<int> q;
+    std::vector<bool> visited(n(), false);
+    //std::vector<int> ordering;//If we wanted to return the traversal instead of printing it
+    q.push(source);
+    visited[source] = true;
+    while(!q.empty()){
+      int vertex = q.front();
+      q.pop();
+      std::cout<<vertex<<", ";
+      //ordering.push_back(vertex);
+      for(auto neighbor:adjLists_[vertex]){
+        if(!visited[neighbor]){
+          q.push(neighbor);
+          visited[neighbor] = true;
+        }
+      }
+      //return ordering;
+    }
 
   }
 
@@ -75,7 +97,7 @@ int main () {
     G.addEdge(4,3);
     G.addEdge(0,4);
 
-   // G.BFS(2);
+    G.BFS(2);
   } else {
     // in class exercise
     Graph G;
