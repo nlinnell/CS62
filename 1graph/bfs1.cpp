@@ -119,14 +119,3 @@ int main () {
   }
 }
 
-/*
-void print_queue(std::queue<int> q)
-{
-  while (!q.empty())
-  {
-    std::cout << q.front() << " ";
-    q.pop();
-  }
-  std::cout << std::endl;
-}
-*/
