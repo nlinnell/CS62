@@ -14,11 +14,13 @@
 // vector<int> v, creates a vector that stores ints.
 // DynamicBag<int> b creates a DynamicBag that stores ints.
 template <typename T>
-class DynamicBag 
+class DynamicBag : public Sortable<T>
 {
 public:
     typedef std::size_t size_type;
-
+    void sort(){
+      this->quickSort(0, size()-1);
+    }
 
     // CONSTRUCTOR & DESTRUCTOR
 
