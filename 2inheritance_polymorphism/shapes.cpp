@@ -10,6 +10,7 @@ public:
 	Shape(){}
 	Shape(std::size_t s){sides_=s;}
 	std::size_t sides(){return sides_;}
+	virtual double perimeter() = 0;//pure virtual method
 };
 
 class Rectangle: public Shape{
@@ -73,9 +74,9 @@ int main(){
   v.push_back(new Rectangle(3, 9));
   v.push_back(new RightTriangle(3, 4)); 
 
-	for(auto e:v){
-		cout<<e->perimeter()<<endl;;
-	}
+  for(auto e:v){
+    cout<<e->perimeter()<<endl;;
+  }
 
   Rectangle* r = new Square (10);
   cout << r->perimeter() << endl;
